@@ -1,0 +1,56 @@
+﻿<!-- Header -->
+<header id="header">
+    <nav class="left">
+        <a href="#menu"><span>Menu</span></a>
+    </nav>
+    <a href="#" class="logo">CaRRent</a>
+
+    <nav class="right">
+        @if (Request.IsAuthenticated)
+        {
+            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken();
+                <a class="button alt" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+
+            }
+            @Html.ActionLink("Register", "Register", "Account", null, new { @class = "button alt" });
+        }
+
+        else
+        {
+            @Html.ActionLink("Login", "Login", "Account", null, new { @class = "button alt" })
+        }
+    </nav>
+</header>
+<!-- Menu -->
+<nav id="menu">
+    @if (Request.IsAuthenticated)
+            {
+        <ul class="links">
+            <li>@Html.ActionLink("Cars", "Index", "Cars")</li>
+            <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
+            <li>@Html.ActionLink("New Rent", "New", "Rentals")</li>
+            <li>@Html.ActionLink("About", "About", "Home")</li>
+            <li><span class="alt">@User.Identity.Name</span></li>
+        </ul>
+    }
+
+    <ul class="actions vertical">
+        @if (Request.IsAuthenticated)
+            {
+
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                @Html.AntiForgeryToken();
+                <li><a class="button fit" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        <li>@Html.ActionLink("Register", "Register", "Account", null, new { @class = "button fit" })</li>
+            }
+        }
+        else
+        {
+            @Html.ActionLink("Login", "Login", "Account", null, new { @class = "button fit" })
+        }
+    </ul>
+</nav>
+

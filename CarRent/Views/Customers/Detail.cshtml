@@ -1,0 +1,46 @@
+﻿@model CarRent.Models.Customers
+
+<div>
+    <h4>Customers</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        @if(Model.dob!=null)
+        { 
+        <dt>
+            @Html.DisplayNameFor(model => model.dob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dob, "{0:d MMM YYYY}")
+        </dd>
+        }
+        <dt>
+            @Html.DisplayNameFor(model => model.subscribedNewsLetter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subscribedNewsLetter)
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.membershipTypeId,"Membership Type")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.membershipType.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

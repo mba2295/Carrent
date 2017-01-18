@@ -1,0 +1,124 @@
+﻿@model IEnumerable<CarRent.Models.Car>
+
+<p>
+    @Html.ActionLink("Create New", "New")
+</p>
+<table class="table" id="cars">
+    <thead>
+        <tr>
+            <th>
+                Manufacturer
+            </th>
+            <th>
+                Model
+            <th>
+                Year
+            </th>
+            <th>Available</th>
+            <th>Details</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.carManufacturer.manufacturerName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.model)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.carYear)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.carId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.carId }) |
+                        <!--Delete using jquery-->
+                        <button forCarId="@item.carId" class="btn btn-link js-delete">Delete</button>
+
+                    </td>
+                </tr>
+            }
+        *@
+    </tbody>
+</table>
+@section scripts
+{
+    <script>
+
+        //Deleting method using jquery and ajax call to our delete action in api
+        $(document).ready(function () {
+
+            $('#cars').DataTable({
+                ajax: {
+                    url: "/api/cars",
+                    dataSrc: ""
+                },
+                columns: [
+                   {
+                       data: "carManufacturer.manufacturerName",
+                   },
+                   {
+                       data: "model"
+                   },
+
+                    {
+                        data: "carYear"
+                    },
+                    {
+                        data: "available",
+                        render:function(data){
+                            if(data==false)
+                            {
+                                return "No";
+                            }
+                            else {
+                                return "Yes";
+                            }
+                        }
+                    },
+                    {
+                        data: "carId",
+                        render: function (data) {
+                            return "<a href='/cars/details/" + data + "'>Details</a>"
+                        }
+                    },
+                    {
+                        data: "carId",
+                        render: function (data) {
+                            return "<a class='btn-link js-delete' forCarId=" + data + ">Delete</a>"
+                        }
+                    }
+
+                ]
+
+            });
+            $("#cars").on("click", ".js-delete", function () {
+
+                var deleteButton = $(this);
+
+                bootbox.confirm("Do you really want to delete the record?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/Cars/" + deleteButton.attr("forCarId"),
+                            method: "Delete",
+                            success: function () {
+                                deleteButton.parents("tr").remove();
+                            }
+
+
+                        });
+                    }
+                });
+
+            })
+        });
+
+
+    </script>
+}

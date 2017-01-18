@@ -1,0 +1,28 @@
+﻿@model CarRent.Models.Car
+
+<div>
+    <h2>Car Details:</h2>
+    <hr />
+    <div class="dl-horizontal">
+        <h4>@Html.DisplayFor(model => model.carManufacturer.manufacturerName) @Html.DisplayFor(model => model.model) </h4>
+
+        <ul>
+
+            <li>
+                @Html.DisplayFor(model => model.carEngine.CC)
+            </li>
+
+            <li>
+                @Html.DisplayFor(model => model.carYear, "{0:d MMM YYYY}")
+            </li>
+
+            <li>
+                @Html.DisplayFor(model => model.condition.condtion)
+            </li>
+        </ul>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.carId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

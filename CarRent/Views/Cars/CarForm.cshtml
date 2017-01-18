@@ -1,0 +1,55 @@
+﻿@model CarRent.ViewModels.CarFormViewModel
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New Car</h2>
+
+@using (Html.BeginForm("Save", "Cars"))
+{
+    @Html.ValidationSummary(true, "Please correct the errors")
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.model, "Model Name")
+        @Html.TextBoxFor(c => c.model, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.model)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.carYear, "Model Year")
+        @Html.TextBoxFor(c => c.carYear, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.carYear)
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.manufacturerId, "Manufacturer:")
+        @Html.DropDownListFor(c => c.manufacturerId, new SelectList(Model.carManufacturer, "manufacturerId", "manufacturerName"), "Select Manufacturer", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.manufacturerId)
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.engineId, "Engine Power:")
+        @Html.DropDownListFor(c => c.engineId, new SelectList(Model.carEngine, "engineId", "CC"), "Select CC", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.engineId)
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.conditionId, "Condition:")
+        @Html.DropDownListFor(c => c.conditionId, new SelectList(Model.condition, "conditionId", "condtion"), "Condtion", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.conditionId)
+
+    </div>
+
+    @Html.HiddenFor(c => c.carId)
+    <div class="form-group">
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

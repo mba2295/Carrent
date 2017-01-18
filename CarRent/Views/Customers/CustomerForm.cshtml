@@ -1,0 +1,47 @@
+﻿@model CarRent.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "NewCustomer";
+}
+
+<h2>New Customer</h2>
+
+
+@using (Html.BeginForm("Save", "Customers"))
+{
+
+    @Html.ValidationSummary(true, "Please correct the errors")
+    <div class="form-group">
+        @Html.LabelFor(c => c.customer.name, "Full Name:")
+        @Html.TextBoxFor(c => c.customer.name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.customer.name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.customer.dob, "Date of Birth:")
+        @Html.TextBoxFor(c => c.customer.dob, "{0:d MMM YYYY}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.customer.dob)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.customer.membershipTypeId, "Membership Type:")
+        @Html.DropDownListFor(c => c.customer.membershipTypeId, new SelectList(Model.MembershipType, "id", "name"), "Select Membership", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.customer.membershipTypeId)
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(c => c.customer.subscribedNewsLetter) Subscribe to NewsLetter
+            @Html.ValidationMessageFor(c => c.customer.subscribedNewsLetter)
+        </label>
+    </div>
+
+
+    @Html.HiddenFor(c => c.customer.id)
+    <div class="form-group">
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

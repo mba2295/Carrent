@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE HTML>
+
+
+<!-- Banner -->
+<section id="banner"></section>
+<div class="content text-center">
+    <h1>Intro</h1>
+    <p>We offer car rental in Karachi. When you want to rent a car in Karachi, then you should have a look at what we have to offer you. We do transfers and tours as well, and any combination.  We can offer you a custom made package.  We know our way around well and are familiar with the road conditions.  With our knowledge and experience we would be pleased to be of assistance to you in planning your visit to Karachi.</p>
+    <nav class="right">
+        @Html.ActionLink("About Us", "About", "Home", null, new { @class = "button alt" })
+    </nav>
+</div>
+
+<br />
+
+<!-- Two -->
+<section id="two" class="wrapper style1 special">
+    <div class="inner">
+        <h2>Our Car, your Comfort</h2>
+        <figure>
+            <blockquote>
+                "The closest thing to being cared for is to care for someone else."
+            </blockquote>
+            <footer>
+                <cite class="author">MBA</cite>
+                <cite class="company">CEO, CaRRent</cite>
+            </footer>
+        </figure>
+    </div>
+</section>
+
+<!-- Three -->
+<section id="three" class="wrapper">
+    <h2 class="text-center">Cars</h2>
+    <div class="inner flex flex-3">
+        <div class="flex-item box">
+            <div class="image fit">
+                <img src="http://www.newcars.com.pk/suzuki/images/suzuki-cultus-white-color-front-view.jpg" alt="cultus" />
+            </div>
+            <div class="content">
+                <h3>Suzuki Cultus</h3>
+                <p>The Suzuki Cultus is a supermini car produced by the Japanese manufacturer Suzuki.</p>
+            </div>
+        </div>
+        <div class="flex-item box">
+            <div class="image fit">
+                <img src="http://www.imperialtoyota.co.za/application/storage/image/resize/corolla_esteem957540610.jpg" alt="toyota" />
+            </div>
+            <div class="content">
+                <h3>Toyota Corolla</h3>
+                <p>The Toyota Corolla is a line of subcompact and compact cars manufactured by Toyota. Introduced in 1966, the Corolla was the best-selling car worldwide by 1974.</p>
+            </div>
+        </div>
+        <div class="flex-item box">
+            <div class="image fit">
+                <img src="http://www.robertsonshonda.com/2011-palmdale-honda-models/honda-civic-si-coupe/gallery/colors/full/5.jpg" alt="" />
+            </div>
+            <div class="content">
+                <h3>Honda Civic</h3>
+                <p>The Honda Civic is a line of small cars manufactured by Honda. Originally a subcompact, the Civic has gone through several generational changes.</p>
+            </div>
+        </div>
+    </div>
+</section>
+@Html.Partial("_ContactFooter")

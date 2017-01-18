@@ -1,0 +1,146 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "New Car Rental";
+}
+
+<h2>New Car Rental</h2>
+
+<form id="newRental">
+    <div class="form-group">
+        <label>Customer</label>
+        <div class="tt-relative">
+            <input required data-rule-validateCustomer="true" name="customer" id="customer" type="text" value="" class="form-control selectTypeahead" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Car</label>
+        <div class="tt-relative">
+            <input required data-rule-validateCars name="car" id="car" type="text" value="" class="form-control selectTypeahead" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-ls-4">
+            <ul id="cars" class="list-group"></ul>
+        </div>
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Submit" />
+</form>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+
+            var virtualModel = {
+                carIds: []
+            };
+
+
+            /////////////////////// code for Twitter.Typeahead plugin for auto filling of Customer //////////////////////////////////
+            var customers = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/customers?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#customer').typeahead({
+                minLength: 1,
+                heighlight: true,
+                hint: true
+            }, {
+                name: 'customers',
+                display: 'name',
+                source: customers
+            }).on("typeahead:select", function (e, customer) {
+                virtualModel.CustomerId = customer.id;
+            });
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+            ////////////////////// code for Twitter.Typeahead plugin for auto filling of Cars ////////////////////////////////////////
+
+            var cars = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('model'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/cars?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#car').typeahead({
+                minLength: 3,
+                heighlight: true,
+                hint: true
+            }, {
+                name: 'cars',
+                display: 'model',
+                source: cars
+            }).on("typeahead:select", function (e, car) {
+                $("#cars").append("<li class='list-group-item'>" + car.model + "</li>");
+
+                $("#car").typeahead("val", "");
+                virtualModel.carIds.push(car.carId);
+            });
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+            ////////////////////Custom Validators for customer and cars///////////////
+            $.validator.addMethod("validateCustomer", function () {
+                return virtualModel.CustomerId && virtualModel.CustomerId !== 0;
+            }, "Please select a valid Customer!");
+
+
+            $.validator.addMethod("validateCars", function () {
+                return virtualModel.carIds.length > 0;
+            }, "Please select a valid Customer!");
+            /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+            //////////////////// Validating over the submit handler of jqueryval //////////////////////////////
+
+           var validator= $("#newRental").validate({
+                submitHandler: function () {
+
+                    $.ajax({
+                        url: "/api/Rentals",
+                        method: "POST",
+                        data: virtualModel
+
+                    })
+
+                    .done(function () {
+                        toastr.success("Rents Successful");
+
+                        $("#car").typeahead("val", "");
+                        $("#customer").typeahead("val", "");
+                        $("#cars").empty();
+                        virtualModel = {
+                            carIds: []
+                        };
+
+                        validator.resetForm();
+
+                    })
+                    .fail(function () {
+                        toastr.error("Something went wrong");
+                    });
+
+                    return flase;
+                }
+
+            });
+            //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        });
+    </script>
+}
