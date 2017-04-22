@@ -109,3 +109,4 @@ C:\Users\Muhammad Bilal\documents\visual studio 2015\Projects\CarRent\CarRent\ob
 C:\Users\Muhammad Bilal\documents\visual studio 2015\Projects\CarRent\CarRent\obj\Debug\CarRent.csproj.GenerateResource.Cache
 C:\Users\Muhammad Bilal\documents\visual studio 2015\Projects\CarRent\CarRent\obj\Debug\CarRent.dll
 C:\Users\Muhammad Bilal\documents\visual studio 2015\Projects\CarRent\CarRent\obj\Debug\CarRent.pdb
+C:\Users\Muhammad Bilal\documents\visual studio 2015\Projects\CarRent\CarRent\obj\Debug\CarRent.csprojResolveAssemblyReference.cache
