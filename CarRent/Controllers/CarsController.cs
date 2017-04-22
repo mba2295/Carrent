@@ -25,8 +25,8 @@ namespace CarRent.Controllers
         // GET: Cars
         public ActionResult Index()
         {
-            if(User.IsInRole(RoleName.canAddCars))
-            return View("Cars");
+            if (User.IsInRole(RoleName.canAddCars))
+                return View("Cars");
 
             return View("ReadOnlyCars");
         }
@@ -45,7 +45,7 @@ namespace CarRent.Controllers
             var manufacturer = _dbContext.Manufacturer.ToList();
             var condition = _dbContext.Condition.ToList();
 
-            var carViewModel = new CarFormViewModel();           
+            var carViewModel = new CarFormViewModel();
             carViewModel.carEngine = engine;
             carViewModel.carManufacturer = manufacturer;
             carViewModel.condition = condition;
@@ -64,7 +64,7 @@ namespace CarRent.Controllers
             {
                 var carViewModel = new CarFormViewModel(car);
 
-               
+
                 carViewModel.carEngine = _dbContext.Engine.ToList();
                 carViewModel.condition = _dbContext.Condition.ToList();
                 carViewModel.carManufacturer = _dbContext.Manufacturer.ToList();
@@ -122,17 +122,6 @@ namespace CarRent.Controllers
                 return RedirectToAction("Index", "Cars");
             }
         }
-
-
-
-        public ActionResult Random()
-        {
-
-
-            //var car = new Car() {};
-            return View();
-        }
-
 
     }
 }
