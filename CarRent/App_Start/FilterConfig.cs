@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using CarRent.CustomClasses;
 using System.Web.Mvc;
 
 namespace CarRent
@@ -9,7 +9,7 @@ namespace CarRent
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new AuthorizeAttribute());
-            filters.Add(new RequireHttpsAttribute());
+            filters.Add(new RequireHttps());
         }
     }
 }
