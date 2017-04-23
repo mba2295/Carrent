@@ -34,7 +34,7 @@ namespace CarRent
                       "~/Scripts/datatables/datatables.bootstrap.js"
                       ));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/cssBundle").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/datatables/css/datatables.bootstrap.css",
